@@ -57,7 +57,7 @@
                 <td><form:errors path="phone" cssClass="error" /></td>
             </tr> 
             <tr> 
-                <td>User Name :</td> 
+                <td>Username :</td> 
                 <td><form:input path="username" /></td> 
                 <td><form:errors path="username" cssClass="error" /></td>
             </tr> 
@@ -68,7 +68,7 @@
             </tr> 
             <tr> 
                 <td colspan="2">
-                <input type="submit"></td> 
+                <input type="submit" value="Create Account"></td> 
             </tr> 
         </table> 
         </form:form>

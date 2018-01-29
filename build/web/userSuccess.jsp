@@ -9,10 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Spring Page</title>
+        <title>Login Success</title>
     </head>
     <body>
-        <h1>Hello ${user.username} Welcome to Mummys<br/> !</h1>
+        <h1>Hello ${user.username} Welcome to Mummy's<br/> !</h1>
         <button onclick="backToHome()">Back to Home</button>
         <script>
             function backToHome() {

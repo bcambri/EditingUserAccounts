@@ -28,15 +28,11 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void insertRecord(newUser usr) {
-        /*String query="insert into Emp values('"+e.getEmpId()+"','"+e.getEmpName()+"',"+e.getSalary()+")";
-        jdbcTemplate.update(query);*/
-
-        //try {
-        //findRecord(usr.getUsername());
-        //   return 1;
-        // } catch (NoSuchElementException e) {
-        //Inserting using prepared Statement
-        long id = getMaxId() + 1;
+        long id = 1;
+        long maxId = getMaxId();
+        while (id <= maxId && findId(id) != 0) {
+            id++;
+        }
         String p_query = "insert into Customers values(" + id + ",?,?,?,?,?,?,?)";
         jdbcTemplate.update(p_query, new Object[]{
             usr.getFirst(), usr.getLast(), usr.getStreet(), usr.getCity(), usr.getState(), usr.getZip(), usr.getPhone()});
@@ -44,40 +40,29 @@ public class UserDAOImpl implements UserDAO {
         // keep username/password + enabled in separate table
         p_query = "insert into CustomerAccounts values(?,?,?,0)";
         jdbcTemplate.update(p_query, new Object[]{id, usr.getUsername(), usr.getPassword()});
-        // return 0;
-        //}
     }
 
     @Override
     public int findRecord(String usrId) {
-        /*Object o[] = {usrId};
-        int argsTypes[] = {Types.VARCHAR};
-        RowMapper mapper = new UsrRowMapper();
-        List l = jdbcTemplate.query("select * from Customers join CustomerAccounts "
-                + "on Customers.customerid=CustomerAccounts.customerid where username=?",
-                o, argsTypes, mapper);
-        Iterator it = l.iterator();
-        User usr = (User) it.next();*/
         return jdbcTemplate.queryForObject("select count(*) from CustomerAccounts where username='" + usrId + "'", Integer.class);
     }
 
     @Override
     public long getTotalNoOfCustomers() {
-        //JdbcTemplate jt = getJdbcTemplate();
-        return jdbcTemplate.queryForObject("select count(lastname) from Customers", Integer.class);
+        return jdbcTemplate.queryForObject("select count(customerid) from Customers", Integer.class);
     }
 
     @Override
     public List getAllCustomers() {
         return jdbcTemplate.query("select Customers.customerid, firstname, lastname, "
                 + "street, city, state, zip, phone, username, password, enabled "
-                + "from Customers join CustomerAccounts on Customers.customerid=CustomerAccounts.customerid",
+                + "from Customers join CustomerAccounts on Customers.customerid=CustomerAccounts.customerid"
+                + " order by Customers.lastname",
                 new NewUsrRowMapper());
     }
 
     @Override
     public User getCustomerByName(String first, String last) {
-        //JdbcTemplate jt = getJdbcTemplate();
         Object o[] = {first, last};
         int argsTypes[] = {Types.VARCHAR, Types.VARCHAR};
         RowMapper mapper = new NewUsrRowMapper();
@@ -87,18 +72,6 @@ public class UserDAOImpl implements UserDAO {
         return usr;
     }
 
-    /*private int getCustomerId(String first, String last) {
-        /*Object o[] = {name};
-        int argsTypes[] = {Types.VARCHAR};
-        RowMapper mapper = new UsrRowMapper();
-        List l = jdbcTemplate.query("select customerid from Customers where Customers.firstname=?", o, argsTypes, mapper);
-        Iterator<Integer> it = l.iterator();
-        int id = it.next();
-        return id;*
-        Integer id = jdbcTemplate.queryForObject("select customerid from Customers where "
-                + "Customers.firstname=" + first + " and Customers.lastname=" + last, Integer.class);
-        return ((id == null) ? 0 : id);
-    }*/
     private long getMaxId() {
         Integer id = jdbcTemplate.queryForObject("select max(customerid) from Customers", Integer.class);
         return ((id == null) ? 0 : id);
@@ -117,18 +90,26 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void banOrEnableCustomer(int id) {
-        Integer enabled = jdbcTemplate.queryForObject("select enabled from CustomerAccounts where customerid=" + id, Integer.class);
-        if (enabled == 0) {
-            enabled = 1;
-        } else {
-            enabled = 0;
+        if (findId(id) != 0) {
+            Integer enabled = jdbcTemplate.queryForObject("select enabled from CustomerAccounts where customerid=" + id, Integer.class);
+            if (enabled == 0) {
+                enabled = 1;
+            } else {
+                enabled = 0;
+            }
+            jdbcTemplate.update("update CustomerAccounts set enabled=" + enabled + " where customerid=" + id);
         }
-        jdbcTemplate.update("update CustomerAccounts set enabled=" + enabled + " where customerid=" + id);
     }
 
     @Override
     public void deleteCustomer(int id) {
-        jdbcTemplate.update("delete from Customers where customerid=" + id);
-        jdbcTemplate.update("delete from CustomerAccounts where customerid=" + id);
+        if (findId(id) != 0) {
+            jdbcTemplate.update("delete from Customers where customerid=" + id);
+            jdbcTemplate.update("delete from CustomerAccounts where customerid=" + id);
+        }
+    }
+
+    private int findId(long id) {
+        return jdbcTemplate.queryForObject("select count(*) from Customers where customerid=" + id, Integer.class);
     }
 }

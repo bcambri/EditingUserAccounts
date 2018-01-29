@@ -5,35 +5,37 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Controller.EditCustomersClass"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Edit Customers</title>
+        <title>Edit Customer Accounts</title>
         <style>
             table {
-                border-collapse: collapse;
+                border-collapse: collapse;                
             }
             #customers { 
                 border: solid;
-                border-width: 1px 0;
+                border-width: 1px 0;                
             }
         </style>
     </head>
     <body>        
         <h1>Mummy's Customers</h1>
-        <table>
+        <table cellpadding="5">
             <tr id="customers">
-                <th>Id</th>
                 <th>Customer</th>
-                <th>Status</th>
+                <th>Username</th>
+                <th>Id</th>
+                <th>Account Status</th>
             </tr>
             <c:forEach items="${listOfCustomers}" var="customer">
                 <tr id="customers">
+                    <td>${customer.last}, ${customer.first}</td>
+                    <td>${customer.username}</td>
                     <td>${customer.id}</td>
-                    <td>${customer.first} ${customer.last}</td>
                     <td>${customer.enabled}</td>
                 </tr>
             </c:forEach>
@@ -45,11 +47,13 @@
                 </tr>
                 <tr> 
                     <td>Id of customer to ban/enable :</td> 
-                    <td><input type="text" name="toChange" autocomplete="off" required="required"/></td> 
+                    <td><input type="text" name="toChange" pattern="[0-9]*"
+                               autocomplete="off" required="required"/></td>
                 </tr>
                 <tr>
                     <td>Id of customer to delete :</td> 
-                    <td><input type="text" name="toDelete" autocomplete="off" required="required"/></td> 
+                    <td><input type="text" name="toDelete" pattern="[0-9]*"
+                               autocomplete="off" required="required"/></td>
                 </tr> 
                 <tr> 
                     <td colspan="2">
@@ -76,7 +80,7 @@
             db.handleChanges(Integer.parseInt(chngId), Integer.parseInt(dltId));
         %>
         <%if (chngId != "0" || dltId != "0") {
-                    response.sendRedirect("editCustomers.htm");
-                }%>        
+                response.sendRedirect("editCustomers.htm");
+            }%>        
     </body>
 </html>

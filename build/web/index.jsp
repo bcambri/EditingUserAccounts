@@ -5,11 +5,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Welcome to Spring Web MVC project</title>
+        <title>Mummy's Restaurant</title>
     </head>
 
     <body>
-        <p>Hello! This is the default welcome page for a Spring Web MVC project.</p>
+        <h1>Hello, and welcome to Mummy's!<br>Please select an option below</h1>
         <h2><a href="login.htm">Login</a></h2>
         <h2><a href="signup.htm">Sign up</a></h2>
         <h2><a href="editCustomers.htm">Edit Customers</a></h2>

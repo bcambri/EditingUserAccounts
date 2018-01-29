@@ -46,6 +46,7 @@
     <bean name="signUpController"
           class="Controller.SignupClass"
           p:formView="signup"
+           p:validator-ref="newUserValidator"
     />
     <bean name="editCustomersController"
           class="Controller.EditCustomersClass"
@@ -55,6 +56,7 @@
          Adding a Validator to User Class
     -->      
     <bean id="userValidator" class="Validator.UserValidator" />
+    <bean id="newUserValidator" class="Validator.NewUserValidator" />
     <!--
          Adding the Resource Bundles
     -->
