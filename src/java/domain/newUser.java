@@ -20,6 +20,7 @@ public class newUser {
     private String phone;
     private String username;
     private String password;
+    private String enabled;
 
     public newUser() {
     }
@@ -30,6 +31,14 @@ public class newUser {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(String enabled) {
+        this.enabled = enabled;
     }
 
     public String getStreet() {

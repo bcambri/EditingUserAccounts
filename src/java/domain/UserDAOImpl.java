@@ -69,7 +69,10 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List getAllCustomers() {
-        return jdbcTemplate.query("select * from Customers join CustomerAccounts on Customers.customerid=CustomerAccounts.customerid", new NewUsrRowMapper());
+        return jdbcTemplate.query("select Customers.customerid, firstname, lastname, "
+                + "street, city, state, zip, phone, username, password, enabled "
+                + "from Customers join CustomerAccounts on Customers.customerid=CustomerAccounts.customerid",
+                new NewUsrRowMapper());
     }
 
     @Override
@@ -110,5 +113,22 @@ public class UserDAOImpl implements UserDAO {
                 o, argsTypes, mapper);
         Iterator it = l.iterator();
         User usr = (User) it.next();
+    }
+
+    @Override
+    public void banOrEnableCustomer(int id) {
+        Integer enabled = jdbcTemplate.queryForObject("select enabled from CustomerAccounts where customerid=" + id, Integer.class);
+        if (enabled == 0) {
+            enabled = 1;
+        } else {
+            enabled = 0;
+        }
+        jdbcTemplate.update("update CustomerAccounts set enabled=" + enabled + " where customerid=" + id);
+    }
+
+    @Override
+    public void deleteCustomer(int id) {
+        jdbcTemplate.update("delete from Customers where customerid=" + id);
+        jdbcTemplate.update("delete from CustomerAccounts where customerid=" + id);
     }
 }
