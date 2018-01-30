@@ -10,7 +10,7 @@ package Validator;
  */
 
 
-import domain.User;
+import Model.User;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;

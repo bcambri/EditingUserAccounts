@@ -5,7 +5,7 @@
  */
 package Validator;
 
-import domain.newUser;
+import Model.newUser;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;

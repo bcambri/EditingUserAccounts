@@ -28,7 +28,7 @@
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-          p:prefix="/"
+          p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp" />
 
     <!--
@@ -39,19 +39,23 @@
           p:viewName="index" />
     
     <bean name="loginController"
-          class="Controller.LoginClass"
+          class="Controller.LoginController"
           p:formView="login"
           p:validator-ref="userValidator"
+          p:userDAO-ref="userDAO"
     />
     <bean name="signUpController"
-          class="Controller.SignupClass"
+          class="Controller.SignupController"
           p:formView="signup"
-           p:validator-ref="newUserValidator"
+          p:validator-ref="newUserValidator"
+          p:userDAO-ref="userDAO"
     />
     <bean name="editCustomersController"
-          class="Controller.EditCustomersClass"
+          class="Controller.EditCustomersController"
           p:formView="editCustomers"
+          p:userDAO-ref="userDAO"
     />
+    <bean name="userDAO" class="Service.UserDAOImpl"/>
     <!--
          Adding a Validator to User Class
     -->      
@@ -60,5 +64,4 @@
     <!--
          Adding the Resource Bundles
     -->
-    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource" p:basename="messages" />
-</beans>
+    </beans>
