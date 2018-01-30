@@ -40,6 +40,9 @@ public class UserDAOImpl implements UserDAO {
         // keep username/password + enabled in separate table
         p_query = "insert into CustomerAccounts values(?,?,?,0)";
         jdbcTemplate.update(p_query, new Object[]{id, usr.getUsername(), usr.getPassword()});
+        
+        p_query = "insert into Login values(?,?,2)";
+        jdbcTemplate.update(p_query, new Object[]{id, usr.getPassword()});
     }
 
     @Override
