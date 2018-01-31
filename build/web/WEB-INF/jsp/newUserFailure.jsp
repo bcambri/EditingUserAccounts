@@ -12,7 +12,7 @@
         <title>Signup Failure</title>
     </head>
     <body>
-        <h1>An account with the username ${user.username} already exists</h1><br>
+        <h1>An account with the email ${user.username} already exists</h1><br>
         <button onclick="back()">Back</button>
         <button onclick="backToHome()">Back to Home</button>
         <script>

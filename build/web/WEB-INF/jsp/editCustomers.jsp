@@ -38,7 +38,7 @@
             <table cellpadding="5">
                 <tr id="customers">
                     <th>Customer</th>
-                    <th>Username</th>
+                    <th>Email</th>
                     <th>Id</th>
                     <th>Account Status</th>
                 </tr>

@@ -1,0 +1,19 @@
+CREATE TABLE Customers(
+    customerid int NOT NULL PRIMARY KEY,
+    firstname varchar(25),
+    lastname varchar(50),
+    Street varchar(75),
+    city varchar(30),
+    state varchar(2),
+    zip int,
+    phone varchar(12)    
+);
+
+CREATE TABLE CustomerAccounts(
+    customerid int,
+    username varchar(25),
+    password varchar(25),
+    enabled int;
+);
+
+customerid in CustomerAccounts is foreign key from Customers

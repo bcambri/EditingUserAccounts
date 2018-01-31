@@ -10,8 +10,8 @@
 <html>
     <style>
         .error {
-         color: #ff0000;
-        font-style: italic;
+            color: #ff0000;
+            font-style: italic;
         }
     </style>
     <head>
@@ -20,57 +20,60 @@
     </head>
     <body>        
         <form:form method="POST" commandName="user"> 
-        <table>
-            <tr> 
-                <td>First Name:</td> 
-                <td><form:input path="first" /></td> 
-                <td><form:errors path="first" cssClass="error" /></td>
-            </tr> 
-            <tr> 
-                <td>Last Name:</td> 
-                <td><form:input path="last" /></td> 
-                <td><form:errors path="last" cssClass="error" /></td>
-            </tr> 
-            <tr> 
-                <td>Street:</td> 
-                <td><form:input path="street" /></td> 
-                <td><form:errors path="street" cssClass="error" /></td>
-            </tr>
-            <tr> 
-                <td>City:</td> 
-                <td><form:input path="city" /></td> 
-                <td><form:errors path="city" cssClass="error" /></td>
-            </tr> 
-            <tr> 
-                <td>State:</td> 
-                <td><form:input path="state" /></td> 
-                <td><form:errors path="state" cssClass="error" /></td>
-            </tr> 
-            <tr> 
-                <td>Zip:</td> 
-                <td><form:input path="zip" /></td> 
-                <td><form:errors path="zip" cssClass="error" /></td>
-            </tr> 
-            <tr> 
-                <td>Phone:</td> 
-                <td><form:input path="phone" /></td> 
-                <td><form:errors path="phone" cssClass="error" /></td>
-            </tr> 
-            <tr> 
-                <td>Username:</td> 
-                <td><form:input path="username" /></td> 
-                <td><form:errors path="username" cssClass="error" /></td>
-            </tr> 
-            <tr> 
-                <td>Password:</td> 
-                <td><form:password path="password" /></td> 
-                <td><form:errors path="password" cssClass="error" /></td>
-            </tr> 
-            <tr> 
-                <td colspan="2">
-                <input type="submit" value="Create Account"></td> 
-            </tr> 
-        </table> 
+            <table>
+                <tr> 
+                    <td>First Name:</td> 
+                    <td><form:input path="first" /></td> 
+                    <td><form:errors path="first" cssClass="error" /></td>
+                </tr> 
+                <tr> 
+                    <td>Last Name:</td> 
+                    <td><form:input path="last" /></td> 
+                    <td><form:errors path="last" cssClass="error" /></td>
+                </tr> 
+                <tr> 
+                    <td>Street:</td> 
+                    <td><form:input path="street" /></td> 
+                    <td><form:errors path="street" cssClass="error" /></td>
+                </tr>
+                <tr> 
+                    <td>City:</td> 
+                    <td><form:input path="city" /></td> 
+                    <td><form:errors path="city" cssClass="error" /></td>
+                </tr> 
+                <tr> 
+                    <td>State:</td> 
+                    <td><form:input path="state" /></td> 
+                    <td><form:errors path="state" cssClass="error" /></td>
+                </tr> 
+                <tr> 
+                    <td>Zip:</td> 
+                    <td><form:input path="zip" /></td> 
+                    <td><form:errors path="zip" cssClass="error" /></td>
+                </tr> 
+                <tr> 
+                    <td>Phone:</td> 
+                    <td><form:input path="phone" placeholder="xxx-xxx-xxxx"
+                            pattern="\d{3}-\d{3}-\d{4}"/></td> 
+                    <td><form:errors path="phone" cssClass="error" /></td>
+                </tr> 
+                <tr> 
+                    <td>Username(Email address):</td> 
+                    <td><form:input path="username" placeholder="customer@example.com"
+                            pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"/>
+                    </td> 
+                    <td><form:errors path="username" cssClass="error" /></td>
+                </tr> 
+                <tr> 
+                    <td>Password:</td> 
+                    <td><form:password path="password" /></td> 
+                    <td><form:errors path="password" cssClass="error" /></td>
+                </tr> 
+                <tr> 
+                    <td colspan="2">
+                        <input type="submit" value="Create Account"></td> 
+                </tr> 
+            </table> 
         </form:form>
         <button onclick="back()">Back</button>
         <script>

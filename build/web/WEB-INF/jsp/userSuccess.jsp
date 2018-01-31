@@ -12,9 +12,15 @@
         <title>Login Success</title>
     </head>
     <body>
-        <h1>Hello ${user.username} Welcome to Mummy's<br/> !</h1>
+        <div id="divToChange">
+            ${user.username}
+        </div>
         <button onclick="backToHome()">Back to Home</button>
         <script>
+            var toChange = document.getElementById("divToChange");
+            var email = toChange.innerHTML;
+            var username = email.substring(0, email.indexOf("@"));
+            toChange.innerHTML = "<h1>Hello, " + username + ". Welcome to Mummy's!</h1>";
             function backToHome() {
                 window.open("index.htm", "_self");
             }

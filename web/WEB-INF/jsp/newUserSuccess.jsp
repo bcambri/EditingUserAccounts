@@ -12,7 +12,7 @@
         <title>Signup Success</title>
     </head>
     <body>
-        <h1>Congratulations ${user.username} Your account has been created<br/> !</h1>
+        <h1>Congratulations! Your account has been created with the email ${user.username}</h1>
         <button onclick="backToHome()">Back to Home</button>
         <script>
             function backToHome() {

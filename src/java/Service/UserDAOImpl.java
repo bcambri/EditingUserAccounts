@@ -41,11 +41,14 @@ public class UserDAOImpl implements UserDAO {
             usr.getFirst(), usr.getLast(), usr.getStreet(), usr.getCity(), usr.getState(), usr.getZip(), usr.getPhone()});
 
         // keep username/password + enabled in separate table
+        String username = usr.getUsername();
+        String password = usr.getPassword();
         p_query = "insert into CustomerAccounts values(?,?,?,0)";
-        jdbcTemplate.update(p_query, new Object[]{id, usr.getUsername(), usr.getPassword()});
+        jdbcTemplate.update(p_query, new Object[]{id, username, password});
 
+        // table for asserting correct login
         p_query = "insert into Login values(?,?,2)";
-        jdbcTemplate.update(p_query, new Object[]{id, usr.getPassword()});
+        jdbcTemplate.update(p_query, new Object[]{username, password});
     }
 
     @Override
