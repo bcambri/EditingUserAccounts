@@ -66,18 +66,18 @@ public class UserDAOImpl implements UserDAO {
         return jdbcTemplate.query("select Customers.customerid, firstname, lastname, "
                     + "street, city, state, zip, phone, username, password, enabled "
                     + "from Customers join CustomerAccounts on Customers.customerid=CustomerAccounts.customerid"
-                    + " order by Customers.lastname",
+                    + " order by CustomerAccounts.enabled, Customers.lastname",
                     new NewUsrRowMapper());
     }
 
     @Override
-    public User getCustomerByName(String first, String last) {
+    public newUser getCustomerByName(String first, String last) {
         Object o[] = {first, last};
         int argsTypes[] = {Types.VARCHAR, Types.VARCHAR};
         RowMapper mapper = new NewUsrRowMapper();
         List l = jdbcTemplate.query("select * from Customers where Customers.firstname=? and Customers.lastname=?", o, argsTypes, mapper);
         Iterator it = l.iterator();
-        User usr = (User) it.next();
+        newUser usr = (newUser) it.next();
         return usr;
     }
 
@@ -113,13 +113,18 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void deleteCustomer(int id) {
         if (findId(id) != 0) {
-            String password = jdbcTemplate.queryForObject("select password from CustomerAccounts where customerid=" + id, String.class);
+            String username = jdbcTemplate.queryForObject("select username from CustomerAccounts where customerid=" + id, String.class);
             jdbcTemplate.update("delete from Customers where customerid=" + id);
             jdbcTemplate.update("delete from CustomerAccounts where customerid=" + id);
-            jdbcTemplate.update("delete from Login where password='" + password + "'");
+            jdbcTemplate.update("delete from Login where login_id='" + username + "'");
         }
     }
 
+    @Override
+    public long getId(String username){
+        return jdbcTemplate.queryForObject("select customerid from CustomerAccounts where username='" + username + "'", Integer.class);
+    }
+    
     private int findId(long id) {
         return jdbcTemplate.queryForObject("select count(*) from Customers where customerid=" + id, Integer.class);
     }
